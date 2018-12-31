@@ -31,6 +31,8 @@ import java.io.PrintWriter;
  */
 public interface LauncherCallbacks {
 
+    public static final String SEARCH_PACKAGE = "com.google.android.googlequicksearchbox";
+
     /*
      * Activity life-cycle methods. These methods are triggered after
      * the code in the corresponding Launcher method is executed.

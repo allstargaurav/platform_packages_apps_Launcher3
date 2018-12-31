@@ -150,7 +150,7 @@ import com.android.launcher3.widget.WidgetHostViewLoader;
 import com.android.launcher3.widget.WidgetListRowEntry;
 import com.android.launcher3.widget.WidgetsFullSheet;
 import com.android.launcher3.widget.custom.CustomWidgetParser;
-
+import com.android.launcher3.qsb.QsbAnimationController;
 import com.google.android.libraries.gsa.launcherclient.LauncherClient;
 import com.google.android.libraries.gsa.launcherclient.LauncherClientService;
 import com.google.android.libraries.gsa.launcherclient.StaticInteger;
@@ -232,6 +232,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     private View mLauncherView;
     @Thunk DragLayer mDragLayer;
     private DragController mDragController;
+	public View mDragHandleIndicator;
 
     private AppWidgetManagerCompat mAppWidgetManager;
     private LauncherAppWidgetHost mAppWidgetHost;
@@ -244,7 +245,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
 
     // Main container view for the all apps screen.
     @Thunk AllAppsContainerView mAppsView;
-    AllAppsTransitionController mAllAppsController;
+    public AllAppsTransitionController mAllAppsController;
 
     // Scrim view for the all apps and overview state.
     @Thunk ScrimView mScrimView;
@@ -306,6 +307,16 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
 
     public LauncherClient getClient() {
         return mClient;
+    }
+
+    private QsbAnimationController mQsbController;
+
+    public QsbAnimationController getQsbController() {
+        return mQsbController;
+    }
+
+    public LauncherClient getClient() {
+        return mLauncherTab.getClient();
     }
 
     @Override
@@ -420,6 +431,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mSharedPrefs.registerOnSharedPreferenceChangeListener(this);
 
         TraceHelper.endSection("Launcher-onCreate");
+		mQsbController = new QsbAnimationController(this);
         RaceConditionTracker.onEvent(ON_CREATE_EVT, EXIT);
         mStateManager.addStateListener(new LauncherStateManager.StateListener() {
             @Override
@@ -1123,7 +1135,7 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
         mWorkspace.initParentViews(mDragLayer);
         mOverviewPanel = findViewById(R.id.overview_panel);
         mHotseat = findViewById(R.id.hotseat);
-
+        mDragHandleIndicator = findViewById(R.id.drag_indicator);
         mLauncherView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
@@ -1371,6 +1383,10 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
 
     public Hotseat getHotseat() {
         return mHotseat;
+    }
+
+    public View getDragHandleIndicator() {
+        return mDragHandleIndicator;
     }
 
     public <T extends View> T getOverviewPanel() {
@@ -1627,6 +1643,19 @@ public class Launcher extends BaseDraggingActivity implements LauncherExterns,
     @Override
     public void startSearch(String initialQuery, boolean selectInitialQuery,
             Bundle appSearchData, boolean globalSearch) {
+
+        View gIcon = findViewById(R.id.g_icon);
+        while (gIcon != null && !gIcon.isClickable()) {
+            if (gIcon.getParent() instanceof View) {
+                gIcon = (View)gIcon.getParent();
+            } else {
+                gIcon = null;
+            }
+        }
+        if (gIcon != null && gIcon.performClick()) {
+            return;
+        }
+
         if (appSearchData == null) {
             appSearchData = new Bundle();
             appSearchData.putString("source", "launcher-search");

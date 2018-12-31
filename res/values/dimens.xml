@@ -24,16 +24,16 @@
     <dimen name="dynamic_grid_icon_drawable_padding">8dp</dimen>
     <!-- Minimum space between workspace and hotseat in spring loaded mode -->
     <dimen name="dynamic_grid_min_spring_loaded_space">8dp</dimen>
-
+    <dimen name="dynamic_grid_min_page_indicator_size">16dp</dimen>
     <dimen name="dynamic_grid_cell_layout_padding">5.5dp</dimen>
     <dimen name="dynamic_grid_cell_padding_x">8dp</dimen>
 
     <!-- Hotseat -->
-    <dimen name="dynamic_grid_hotseat_top_padding">8dp</dimen>
-    <dimen name="dynamic_grid_hotseat_bottom_padding">2dp</dimen>
+    <dimen name="dynamic_grid_hotseat_top_padding">0dp</dimen>
+    <dimen name="dynamic_grid_hotseat_bottom_padding">72dp</dimen>
     <!-- Extra bottom padding for non-tall devices. -->
-    <dimen name="dynamic_grid_hotseat_bottom_non_tall_padding">0dp</dimen>
-    <dimen name="dynamic_grid_hotseat_extra_vertical_size">34dp</dimen>
+    <dimen name="dynamic_grid_hotseat_bottom_non_tall_padding">15dp</dimen>
+    <dimen name="dynamic_grid_hotseat_extra_vertical_size">70dp</dimen>
     <dimen name="dynamic_grid_hotseat_side_padding">0dp</dimen>
 
     <!-- Hotseat/all-apps scrim -->

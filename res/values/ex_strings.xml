@@ -52,4 +52,10 @@
     <!-- Folder titles -->
     <string name="google_title" translatable="false">Google</string>
     <string name="play_folder_title">Play</string>
+
+    <!-- QSB -->
+    <string name="hotseat_qsb_preferences">Preferences</string>
+    <string name="label_search">Search</string>
+    <string name="label_voice_search">Voice search</string>
+
 </resources>

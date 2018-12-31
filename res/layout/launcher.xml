@@ -38,6 +38,9 @@
             android:theme="@style/HomeScreenElementTheme"
             launcher:pageIndicator="@+id/page_indicator" />
 
+        <include android:id="@id/drag_indicator"
+            layout="@layout/drag_handle_indicator" />
+
         <!-- DO NOT CHANGE THE ID -->
         <include
             android:id="@+id/hotseat"

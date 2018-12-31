@@ -29,6 +29,7 @@ import static com.android.launcher3.anim.Interpolators.ZOOM_OUT;
 import static com.android.launcher3.anim.PropertySetter.NO_ANIM_PROPERTY_SETTER;
 import static com.android.launcher3.graphics.WorkspaceAndHotseatScrim.SCRIM_PROGRESS;
 import static com.android.launcher3.graphics.WorkspaceAndHotseatScrim.SYSUI_PROGRESS;
+import static com.android.launcher3.LauncherState.VERTICAL_SWIPE_INDICATOR;
 
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -115,6 +116,8 @@ public class WorkspaceStateTransitionAnimation {
             propertySetter.setViewAlpha(hotseat, hotseatIconsAlpha, fadeInterpolator);
             propertySetter.setViewAlpha(mLauncher.getWorkspace().getPageIndicator(),
                     hotseatIconsAlpha, fadeInterpolator);
+            propertySetter.setViewAlpha(mLauncher.getDragHandleIndicator(), 
+                    (elements & VERTICAL_SWIPE_INDICATOR) != 0 ? 1 : 0, fadeInterpolator);
         }
 
         if (!config.playNonAtomicComponent()) {
